@@ -165,7 +165,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "OrdenDeTrabajo";
-            this.Size = new System.Drawing.Size(440, 441);
+            this.Size = new System.Drawing.Size(440, 428);
             this.ResumeLayout(false);
             this.PerformLayout();
 

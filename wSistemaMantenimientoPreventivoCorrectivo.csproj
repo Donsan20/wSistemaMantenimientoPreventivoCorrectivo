@@ -59,7 +59,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="OrdenDeTrabajo.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="OrdenDeTrabajo.Designer.cs">
       <DependentUpon>OrdenDeTrabajo.cs</DependentUpon>
