@@ -18,10 +18,8 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
         {
             string user = txtUsuario.Text.Trim().ToLower();
             string pass = txtContraseña.Text.Trim();
-            //conexion con mi base de datos sql server
-            string connectionString = @"Server=DESKTOP-8T64Q5F\SQLEXPRESS;Database=MantenimientoDB;Integrated Security=true;";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            // 2. Usamos la conexión centralizada
+            using (SqlConnection connection = ConexionBD.ObtenerConexion())
             {
                 try
                 {

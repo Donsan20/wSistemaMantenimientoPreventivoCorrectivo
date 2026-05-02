@@ -30,10 +30,8 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
             cmbTipo.SelectedIndex = 0;   //selecciona el primero por defecto
             dtpFecha.MinDate = DateTime.Today;    // Un mantenimiento programado no debería tener una fecha en el pasado
 
-            // 2. Cargar los equipos desde SQL Server
-            string connectionString = @"Server=DESKTOP-8T64Q5F\SQLEXPRESS;Database=MantenimientoDB;Integrated Security=true;";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            // 2. Cargar los equipos desde SQL Server usando la conexión centralizada
+            using (SqlConnection connection = ConexionBD.ObtenerConexion())
             {
                 try
                 {
@@ -92,10 +90,8 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
             // OJO: Id temporal para que la base de datos nos deje guardar.
             int idTecnicoTemporal = 3;
 
-            // 3. CONECTAR Y GUARDAR
-            string connectionString = @"Server=DESKTOP-8T64Q5F\SQLEXPRESS;Database=MantenimientoDB;Integrated Security=true;";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            // 3. CONECTAR Y GUARDAR usando la conexión centralizada
+            using (SqlConnection connection = ConexionBD.ObtenerConexion())
             {
                 try
                 {

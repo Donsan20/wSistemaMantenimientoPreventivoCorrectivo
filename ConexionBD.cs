@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Data.SqlClient; // El diccionario para SQL Server
 using System.Windows.Forms;
@@ -8,7 +8,8 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
     public static class ConexionBD
     {
         // 1. CENTRALIZAMOS LA CADENA DE CONEXIÓN AQUÍ (Solo se cambia una vez)
-        private static string cadenaConexion = @"Server=DESKTOP-8T64Q5F\SQLEXPRESS;Database=MantenimientoDB;Integrated Security=true;";
+        // Usamos LocalDB y DataDirectory para que la base de datos sea un archivo local (.mdf) y no dependa del PC
+        private static string cadenaConexion = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\MantenimientoDB.mdf;Integrated Security=True;";
 
         // Método público para que cualquier formulario pueda obtener la conexión si la necesita
         public static SqlConnection ObtenerConexion()
