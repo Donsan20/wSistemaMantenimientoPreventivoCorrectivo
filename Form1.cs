@@ -23,7 +23,7 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
             {
                 if (user == "admin" || user == "tecnico" || user == "super")
                 {
-                    // Instanciamos el Dashboard y le pasamos el ROL (Aquí ocurre la inyección)
+                    // Instanciamos el Dashboard y le pasamos el ROL
                     Admin dashboard = new Admin(user);
                     
                     this.Hide(); // Ocultar el Login

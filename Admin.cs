@@ -15,7 +15,7 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
             
             ConfigurarPermisos();
 
-            // Suscribimos el botón de nueva orden (button4 según tu interfaz)
+            // Suscribimos el botón de nueva orden
             button4.Click += AbrirNuevaOrden;
         }
 
@@ -26,7 +26,7 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
 
         private void ConfigurarPermisos()
         {
-            // ACÁ OCURRE LA MAGIA DEL CONTROL DE ACCESO
+            // CONTROL DE ACCESO
             if (_rolUsuario == "tecnico")
             {
                 button3.Visible = false; // EQUIPOS
@@ -36,7 +36,7 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
             {
                 button4.Visible = false; // NUEVA ORDEN
             }
-            // Admin se salta ambas restricciones
+            // Admin tiene todo los permisos
         }
 
         private void AbrirNuevaOrden(object sender, EventArgs e)
