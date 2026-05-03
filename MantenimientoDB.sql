@@ -51,3 +51,74 @@ INSERT INTO Equipos (NombreEquipo, Estado) VALUES ('Motor Eléctrico Principal',
 INSERT INTO Equipos (NombreEquipo, Estado) VALUES ('Banda Transportadora B', 'Activo');
 INSERT INTO Equipos (NombreEquipo, Estado) VALUES ('Torno CNC', 'Inactivo');
 GO
+
+-- =======================================================
+-- PROCEDIMIENTOS ALMACENADOS (Stored Procedures)
+-- Agregados para cumplir con Arquitectura de N Capas
+-- =======================================================
+
+GO
+
+-- 1. Validar Login
+CREATE PROCEDURE sp_ValidarLogin
+    @Usuario VARCHAR(50),
+    @Password VARCHAR(50)
+AS
+BEGIN
+    SELECT r.NombreRol 
+    FROM Usuarios u 
+    INNER JOIN Roles r ON u.IdRol = r.IdRol 
+    WHERE u.Username = @Usuario AND u.Password = @Password AND u.Estado = 1;
+END
+GO
+
+-- 2. Listar Equipos Activos
+CREATE PROCEDURE sp_ListarEquiposActivos
+AS
+BEGIN
+    SELECT IdEquipo, NombreEquipo 
+    FROM Equipos 
+    WHERE Estado = 'Activo';
+END
+GO
+
+-- 3. Insertar Orden de Trabajo
+CREATE PROCEDURE sp_InsertarOrden
+    @IdEquipo INT,
+    @IdTecnico INT,
+    @TipoMantenimiento VARCHAR(50),
+    @FechaProgramada DATETIME,
+    @DescripcionFalla VARCHAR(MAX)
+AS
+BEGIN
+    INSERT INTO OrdenesTrabajo (IdEquipo, IdTecnico, TipoMantenimiento, FechaProgramada, DescripcionFalla) 
+    VALUES (@IdEquipo, @IdTecnico, @TipoMantenimiento, @FechaProgramada, @DescripcionFalla);
+END
+GO
+
+-- 4. Listar todas las Ordenes (Para el Dashboard)
+CREATE PROCEDURE sp_ListarOrdenes
+AS
+BEGIN
+    SELECT 
+        O.IdOrden AS 'Cod orden', 
+        E.NombreEquipo AS 'Equipo Afectado', 
+        O.TipoMantenimiento AS 'Tipo', 
+        O.FechaProgramada AS 'Fecha Prog', 
+        O.EstadoOrden AS 'Estado actual'
+    FROM OrdenesTrabajo O
+    INNER JOIN Equipos E ON O.IdEquipo = E.IdEquipo;
+END
+GO
+
+-- 5. Contar Alertas Próximas (Para el Panel)
+CREATE PROCEDURE sp_ContarAlertasProximas
+AS
+BEGIN
+    SELECT COUNT(*) 
+    FROM OrdenesTrabajo 
+    WHERE EstadoOrden = 'Pendiente' 
+    AND FechaProgramada BETWEEN GETDATE() AND DATEADD(day, 7, GETDATE());
+END
+GO
+

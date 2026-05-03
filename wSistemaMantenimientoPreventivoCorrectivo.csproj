@@ -175,6 +175,13 @@
     </Compile>
     <Compile Include="AuxiliarInterfaz.cs" />
     <Compile Include="ConexionBD.cs" />
+    <Compile Include="CapaDatos\CD_Conexion.cs" />
+    <Compile Include="CapaDatos\CD_Equipos.cs" />
+    <Compile Include="CapaDatos\CD_Ordenes.cs" />
+    <Compile Include="CapaDatos\CD_Usuarios.cs" />
+    <Compile Include="CapaNegocio\CN_Equipos.cs" />
+    <Compile Include="CapaNegocio\CN_Ordenes.cs" />
+    <Compile Include="CapaNegocio\CN_Usuarios.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

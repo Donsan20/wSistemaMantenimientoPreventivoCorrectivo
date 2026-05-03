@@ -1,13 +1,15 @@
 using System;
 using System.Data;
-using System.Data.SqlClient;
+using System.Drawing;
 using System.Windows.Forms;
+using wSistemaMantenimientoPreventivoCorrectivo.CapaNegocio;
 
 namespace wSistemaMantenimientoPreventivoCorrectivo
 {
     public partial class Admin : Form
     {
         private string _rolUsuario;
+        private CN_Ordenes objOrden = new CN_Ordenes();
 
         public Admin(string rolUsuario)
         {
@@ -37,7 +39,7 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
                 btnEquipos.Visible = false;
                 btnReportes.Visible = false;
             }
-            else if (_rolUsuario == "Supervisor")
+            else if (_rolUsuario == "Supervisor" || _rolUsuario == "Super")
             {
                 btnNuevaOrden.Visible = false;
             }
@@ -45,56 +47,39 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
 
         private void CargarTablaOrdenes()
         {
-            
-            // usamos  clase ConexionBD.
-            string query = @"SELECT 
-                                O.IdOrden AS 'Cod orden', 
-                                E.NombreEquipo AS 'Equipo Afectado', 
-                                O.TipoMantenimiento AS 'Tipo', 
-                                O.FechaProgramada AS 'Fecha Prog', 
-                                O.EstadoOrden AS 'Estado actual'
-                             FROM OrdenesTrabajo O
-                             INNER JOIN Equipos E ON O.IdEquipo = E.IdEquipo";
-
-            // Usamos la clase experta
-            dataGridView.DataSource = ConexionBD.CargarDatos(query);
-            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            try
+            {
+                // Usamos la capa de negocio
+                dataGridView.DataSource = objOrden.ListarOrdenes();
+                dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void CargarAlertas()
         {
-            // actualizacion mantenimiente programados 
-            using (SqlConnection connection = ConexionBD.ObtenerConexion())
+            try
             {
-                try
+                // Llamamos a la capa de negocio
+                int mantenimientosProximos = objOrden.ContarAlertasProximas();
+
+                if (mantenimientosProximos > 0)
                 {
-                    connection.Open();
-
-                    string query = @"SELECT COUNT(*) 
-                                     FROM OrdenesTrabajo 
-                                     WHERE EstadoOrden = 'Pendiente' 
-                                     AND FechaProgramada BETWEEN GETDATE() AND DATEADD(day, 7, GETDATE())";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        int mantenimientosProximos = Convert.ToInt32(command.ExecuteScalar());
-
-                        if (mantenimientosProximos > 0)
-                        {
-                            pnlAlertas.BackColor = System.Drawing.Color.Tomato;
-                            lblAlertas.Text = $"¡ALERTA! Hay {mantenimientosProximos} mantenimiento(s) programado(s) para los próximos 7 días.";
-                        }
-                        else
-                        {
-                            pnlAlertas.BackColor = System.Drawing.Color.MediumSeaGreen;
-                            lblAlertas.Text = "Todo al día. No hay mantenimientos críticos próximos.";
-                        }
-                    }
+                    pnlAlertas.BackColor = Color.Tomato;
+                    lblAlertas.Text = $"¡ALERTA! Hay {mantenimientosProximos} mantenimiento(s) programado(s) para los próximos 7 días.";
                 }
-                catch (SqlException ex)
+                else
                 {
-                    lblAlertas.Text = "Error al cargar alertas.";
+                    pnlAlertas.BackColor = Color.MediumSeaGreen;
+                    lblAlertas.Text = "Todo al día. No hay mantenimientos críticos próximos.";
                 }
+            }
+            catch (Exception ex)
+            {
+                lblAlertas.Text = "Error al cargar alertas: " + ex.Message;
             }
         }
 
@@ -107,10 +92,8 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
         }
 
         // Filtro para estado de las OT
-
         private void cmbFiltrar_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-
             DataTable tablaEnMemoria = dataGridView.DataSource as DataTable;
 
             if (tablaEnMemoria != null)
@@ -129,6 +112,25 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
                 {
                     tablaEnMemoria.DefaultView.RowFilter = $"[Estado actual] = '{seleccion}'";
                 }
+            }
+        }
+
+        private void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            // Validamos con el usuario si realmente desea salir (muy importante)
+            DialogResult confirmacion = MessageBox.Show(
+                "¿Estás seguro de que deseas cerrar sesión y volver al inicio?",
+                "Cerrar Sesión",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            // Si el usuario hace clic en "Sí"
+            if (confirmacion == DialogResult.Yes)
+            {
+                // Esto cierra el Dashboard. Como ya configuré tu Form1.cs, 
+                // al cerrarse esta ventana, el Login volverá a aparecer automáticamente.
+                this.Close();
             }
         }
     }

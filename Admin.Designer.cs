@@ -42,6 +42,7 @@
             this.btnReportes = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.btnDashboard = new System.Windows.Forms.Button();
+            this.btnCerrarSesion = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.pnlAlertas.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -122,6 +123,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.panel2.Controls.Add(this.btnCerrarSesion);
             this.panel2.Controls.Add(this.lblRolSesion);
             this.panel2.Controls.Add(this.btnNuevaOrden);
             this.panel2.Controls.Add(this.btnEquipos);
@@ -196,6 +198,18 @@
             this.btnDashboard.Text = "DASHBOARD";
             this.btnDashboard.UseVisualStyleBackColor = true;
             // 
+            // btnCerrarSesion
+            // 
+            this.btnCerrarSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCerrarSesion.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnCerrarSesion.Location = new System.Drawing.Point(32, 225);
+            this.btnCerrarSesion.Name = "btnCerrarSesion";
+            this.btnCerrarSesion.Size = new System.Drawing.Size(211, 23);
+            this.btnCerrarSesion.TabIndex = 11;
+            this.btnCerrarSesion.Text = "CERRAR SESION";
+            this.btnCerrarSesion.UseVisualStyleBackColor = true;
+            this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
+            // 
             // Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -234,5 +248,6 @@
         private System.Windows.Forms.Button btnReportes;
         private System.Windows.Forms.Label lblAlertas;
         private System.Windows.Forms.Label lblRolSesion;
+        private System.Windows.Forms.Button btnCerrarSesion;
     }
 }
