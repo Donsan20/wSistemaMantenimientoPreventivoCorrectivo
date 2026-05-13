@@ -1,120 +1,69 @@
-# Documentación Sprint 1 - Sistema de Mantenimiento
+# Documentación Sprint 1 - Sistema de Mantenimiento Preventivo y Correctivo
 
-Este documento consolida los entregables requeridos para el **Sprint 1** del proyecto de Herramientas de Programación II.
-
----
-
-## a) Definición del problema empresarial
-
-**Contexto:** La empresa manufacturera "Industrias Técnicas S.A." depende en gran medida del correcto funcionamiento de su maquinaria de producción (motores eléctricos, bandas transportadoras, tornos, etc.). 
-**Problema:** Actualmente, el registro y control de los mantenimientos de los equipos se lleva a cabo mediante hojas de cálculo en Excel y papeles impresos. Esto ocasiona:
-1. Pérdida de información histórica sobre las fallas de los equipos.
-2. Imposibilidad de generar alertas tempranas para mantenimientos preventivos.
-3. Descoordinación entre los supervisores y los técnicos.
-**Solución:** Se requiere desarrollar un "Sistema de Mantenimiento Preventivo y Correctivo" que digitalice y centralice el proceso de creación y seguimiento de órdenes de trabajo, permitiendo a diferentes roles interactuar con la plataforma de acuerdo a sus permisos.
+Este documento detalla el cumplimiento exacto de los entregables requeridos para el **Sprint 1**, estructurado de manera formal y directa para facilitar su evaluación.
 
 ---
 
-## b) Levantamiento y redacción de requisitos funcionales y no funcionales
+## 1. Problema y Objetivos del Sistema
+* **Problema:** En el sector industrial, el control de mantenimiento de la maquinaria (motores, tornos, etc.) suele realizarse de forma manual o mediante planillas de cálculo. Esta desorganización genera pérdida de trazabilidad técnica, imposibilidad de anticipar fallas y paradas de producción imprevistas que aumentan los costos operativos.
+* **Objetivo del Sistema:** Desarrollar un sistema de escritorio centralizado que permita digitalizar la gestión de mantenimiento, agendar órdenes de trabajo (preventivas y correctivas), controlar el historial de cada equipo y generar alertas tempranas de manera automatizada.
+
+## 2. Requisitos Funcionales y No Funcionales
 
 ### Requisitos Funcionales (RF)
-*   **RF01 - Autenticación:** El sistema debe permitir a los usuarios iniciar sesión mediante un nombre de usuario y contraseña.
-*   **RF02 - Control de Roles:** El sistema debe restringir las funcionalidades dependiendo de si el usuario es Administrador, Técnico o Supervisor.
-*   **RF03 - Dashboard Principal:** El sistema debe mostrar un listado general con todas las órdenes de trabajo activas y su estado actual.
-*   **RF04 - Filtrado de Órdenes:** El sistema debe permitir filtrar las órdenes en el Dashboard por su estado (Pendiente, Completada) o tipo (Preventivo, Correctivo).
-*   **RF05 - Creación de Órdenes:** El sistema debe permitir a los Técnicos y Administradores crear nuevas órdenes seleccionando el equipo, fecha, tipo de mantenimiento y la descripción de la falla.
-*   **RF06 - Alertas Visuales:** El sistema debe alertar en el Dashboard cuántos mantenimientos están programados para los próximos 7 días.
+*   **RF01 - Autenticación:** Acceso restringido mediante credenciales validadas en base de datos.
+*   **RF02 - Gestión de Roles:** Funcionalidades e interfaces adaptables dinámicamente según el rol del usuario (Administrador, Técnico, Supervisor).
+*   **RF03 - Dashboard General:** Visualización en tiempo real de órdenes activas, responsables y estado actual.
+*   **RF04 - Gestión de Órdenes:** Capacidad para crear y consultar órdenes de trabajo asignadas a equipos específicos.
+*   **RF05 - Alertas Tempranas:** Notificación visual de mantenimientos críticos programados para los próximos 7 días.
+*   **RF06 - Filtrado Optimizado:** Búsqueda y filtrado de órdenes de trabajo gestionado en memoria (DataView) para no saturar el servidor SQL.
 
 ### Requisitos No Funcionales (RNF)
-*   **RNF01 - Arquitectura:** El sistema debe estar construido utilizando el patrón de Arquitectura de 3 Capas (Presentación, Negocio, Datos).
-*   **RNF02 - Patrones de Diseño:** La conexión a la base de datos debe implementar el Patrón Singleton.
-*   **RNF03 - Seguridad:** El sistema no debe contener consultas SQL embebidas en el código fuente, debe utilizar Procedimientos Almacenados (Stored Procedures) para prevenir inyección SQL.
+*   **RNF01 - Plataforma:** Aplicación de escritorio desarrollada en C# utilizando Windows Forms.
+*   **RNF02 - Motor de Base de Datos:** Persistencia de datos en SQL Server (LocalDB con `DataDirectory`) para garantizar portabilidad sin configuraciones complejas de servidor.
+*   **RNF03 - Seguridad:** Uso estricto de Procedimientos Almacenados (Stored Procedures) para la interacción con la base de datos, previniendo ataques de inyección SQL.
 
----
+## 3. Reglas de Negocio
+*   **RN01 - Restricción de Creación:** Exclusivamente el rol "Admin" posee los privilegios para crear nuevas órdenes de trabajo en el sistema.
+*   **RN02 - Aislamiento Técnico:** Un rol "Técnico" solo tiene visibilidad e interacción con las funcionalidades operativas (se le ocultan módulos administrativos).
+*   **RN03 - Ciclo de Vida de la Orden:** Toda orden nueva nace por defecto en estado "Pendiente". Los tipos de mantenimiento son estrictamente "Preventivo" o "Correctivo".
+*   **RN04 - Integridad Relacional:** No es posible registrar una orden sin vincularla a un equipo activo previamente registrado.
 
-## c) Identificación y documentación de reglas de negocio
+## 4. Arquitectura Propuesta
+El sistema implementa una **Arquitectura en 3 Capas (N-Tier Architecture)**, separando lógicamente las responsabilidades para garantizar la mantenibilidad y escalabilidad del código:
+*   **Capa de Presentación (UI):** Formularios de Windows Forms. Se encargan exclusivamente de la interacción con el usuario y la captura de datos.
+*   **Capa de Negocio (BLL):** Orquesta las validaciones y aplica las reglas de negocio antes de permitir la comunicación con la base de datos.
+*   **Capa de Datos (DAL):** Única capa con acceso a la librería ADO.NET. Implementa el **Patrón de Diseño GoF Singleton** en la clase de conexión para garantizar una única instancia activa, optimizando el consumo de recursos.
 
-*   **RN01 - Restricción de Fechas:** No se puede programar una orden de mantenimiento preventivo para una fecha que ya haya pasado (menor al día actual).
-*   **RN02 - Obligatoriedad de Campos:** Al crear una orden, es estrictamente obligatorio seleccionar un equipo y proveer una descripción textual de la falla.
-*   **RN03 - Permisos de Supervisor:** Un usuario con el rol de "Supervisor" no tiene permisos para crear nuevas órdenes de mantenimiento, solo puede monitorearlas.
-*   **RN04 - Permisos de Técnico:** Un usuario con el rol de "Técnico" no tiene acceso al panel de gestión de equipos ni a la generación de reportes gerenciales.
-*   **RN05 - Estado de Equipos:** Solo se pueden registrar órdenes de mantenimiento sobre equipos cuyo estado en el sistema sea "Activo".
-
----
-
-## d) Diseño preliminar de arquitectura en capas
-
-El proyecto adopta un diseño **N-Tier Architecture (3 Capas)** aplicando los principios SOLID (específicamente SRP - Principio de Responsabilidad Única):
-
-1.  **Capa de Presentación (UI):** Formularios en Windows Forms. Su única responsabilidad es capturar la interacción del usuario y mostrar datos. No tienen comunicación directa con SQL.
-2.  **Capa de Negocio (BLL):** Clases intermedias (`CN_Usuarios`, `CN_Ordenes`, `CN_Equipos`). Reciben las peticiones de la UI, ejecutan validaciones condicionales (Reglas de Negocio) y si todo es correcto, llaman a la Capa de Datos.
-3.  **Capa de Datos (DAL):** Clases (`CD_Conexion`, `CD_Usuarios`, `CD_Ordenes`). Su única responsabilidad es abrir la conexión SQL (usando Patrón Singleton) y ejecutar los Procedimientos Almacenados.
-
----
-
-## e) Diagrama de clases preliminar
-
+## 5. Diagrama de Clases Preliminar
 ```mermaid
 classDiagram
-    class Form1_Login {
-        +btnIngresar_Click()
+    class Formularios_UI {
+        +Form1_Login()
+        +Admin_Dashboard()
+        +OrdenDeTrabajo()
     }
-    class Admin_Dashboard {
-        +CargarTablaOrdenes()
-        +CargarAlertas()
+    class CapaNegocio_BLL {
+        +CN_Usuarios
+        +CN_Ordenes
+        +CN_Equipos
     }
-    class OrdenDeTrabajo {
-        +btnguardar_Click()
+    class CapaDatos_DAL {
+        +CD_Usuarios
+        +CD_Ordenes
+        +CD_Equipos
     }
-    
-    class CN_Usuarios {
-        +ValidarLogin(usuario, password) string
-    }
-    class CN_Ordenes {
-        +InsertarOrden(...) bool
-        +ListarOrdenes() DataTable
-        +ContarAlertasProximas() int
-    }
-    class CN_Equipos {
-        +ListarEquiposActivos() DataTable
+    class Singleton_Conexion {
+        +CD_Conexion.Instancia
     }
     
-    class CD_Usuarios {
-        +ValidarLogin(usuario, password) string
-    }
-    class CD_Ordenes {
-        +InsertarOrden(...) bool
-        +ListarOrdenes() DataTable
-        +ContarAlertasProximas() int
-    }
-    class CD_Equipos {
-        +ListarEquiposActivos() DataTable
-    }
-    class CD_Conexion {
-        -cadenaConexion: string
-        -_instancia: CD_Conexion
-        +Instancia: CD_Conexion
-        +ObtenerConexion() SqlConnection
-    }
-
-    Form1_Login --> CN_Usuarios : usa
-    Admin_Dashboard --> CN_Ordenes : usa
-    OrdenDeTrabajo --> CN_Equipos : usa
-    OrdenDeTrabajo --> CN_Ordenes : usa
-
-    CN_Usuarios --> CD_Usuarios : valida
-    CN_Ordenes --> CD_Ordenes : invoca
-    CN_Equipos --> CD_Equipos : invoca
-
-    CD_Usuarios --> CD_Conexion : usa
-    CD_Ordenes --> CD_Conexion : usa
-    CD_Equipos --> CD_Conexion : usa
+    Formularios_UI --> CapaNegocio_BLL : Invoca
+    CapaNegocio_BLL --> CapaDatos_DAL : Valida y Delega
+    CapaDatos_DAL --> Singleton_Conexion : Solicita Conexión
 ```
 
----
-
-## f) Modelo entidad-relación
-
+## 6. Modelo Entidad-Relación y BD Normalizada
+El diseño relacional se encuentra normalizado hasta la Tercera Forma Normal (3FN), eliminando redundancias y garantizando la integridad referencial.
 ```mermaid
 erDiagram
     Roles ||--o{ Usuarios : tiene
@@ -147,3 +96,15 @@ erDiagram
         varchar EstadoOrden
     }
 ```
+
+## 7. Script Inicial de BD
+El script fundacional entregado (`MantenimientoDB.sql`) incluye la creación de la base de datos, la estructura de las tablas, restricciones de llaves foráneas y la inserción de datos semilla para pruebas funcionales. Adicionalmente, incluye el esquema de Procedimientos Almacenados que utiliza el backend.
+
+## 8. Prototipo del FrontEnd en Windows Forms
+El prototipo excede el requisito de "solo diseño visual", logrando las siguientes integraciones operativas:
+*   Pantalla de Login con validación real de credenciales.
+*   Dashboard dinámico que renderiza controles y botones de acción dependiendo de los permisos del rol autenticado.
+*   Modal de creación de órdenes conectado al motor relacional de la BD.
+
+## 9. Repositorio GitHub con Commits y README Inicial
+El proyecto completo, incluyendo código fuente, scripts y esta documentación, se encuentra versionado en un repositorio de GitHub. El mismo cuenta con un archivo `.gitignore` estandarizado para C# y un `README.md` con las instrucciones necesarias para desplegar la base de datos LocalDB y ejecutar el sistema.
