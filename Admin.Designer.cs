@@ -36,13 +36,13 @@
             this.lblAlertas = new System.Windows.Forms.Label();
             this.Advertencia = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnCerrarSesion = new System.Windows.Forms.Button();
             this.lblRolSesion = new System.Windows.Forms.Label();
             this.btnNuevaOrden = new System.Windows.Forms.Button();
             this.btnEquipos = new System.Windows.Forms.Button();
             this.btnReportes = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.btnDashboard = new System.Windows.Forms.Button();
-            this.btnCerrarSesion = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.pnlAlertas.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -54,7 +54,7 @@
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Location = new System.Drawing.Point(277, 122);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(541, 276);
+            this.dataGridView.Size = new System.Drawing.Size(558, 289);
             this.dataGridView.TabIndex = 0;
             // 
             // label1
@@ -132,8 +132,20 @@
             this.panel2.Controls.Add(this.btnDashboard);
             this.panel2.Location = new System.Drawing.Point(0, -2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(264, 413);
+            this.panel2.Size = new System.Drawing.Size(271, 413);
             this.panel2.TabIndex = 5;
+            // 
+            // btnCerrarSesion
+            // 
+            this.btnCerrarSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCerrarSesion.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnCerrarSesion.Location = new System.Drawing.Point(57, 242);
+            this.btnCerrarSesion.Name = "btnCerrarSesion";
+            this.btnCerrarSesion.Size = new System.Drawing.Size(165, 45);
+            this.btnCerrarSesion.TabIndex = 11;
+            this.btnCerrarSesion.Text = "CERRAR SESION";
+            this.btnCerrarSesion.UseVisualStyleBackColor = true;
+            this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
             // 
             // lblRolSesion
             // 
@@ -197,18 +209,6 @@
             this.btnDashboard.TabIndex = 6;
             this.btnDashboard.Text = "DASHBOARD";
             this.btnDashboard.UseVisualStyleBackColor = true;
-            // 
-            // btnCerrarSesion
-            // 
-            this.btnCerrarSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCerrarSesion.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnCerrarSesion.Location = new System.Drawing.Point(32, 225);
-            this.btnCerrarSesion.Name = "btnCerrarSesion";
-            this.btnCerrarSesion.Size = new System.Drawing.Size(211, 23);
-            this.btnCerrarSesion.TabIndex = 11;
-            this.btnCerrarSesion.Text = "CERRAR SESION";
-            this.btnCerrarSesion.UseVisualStyleBackColor = true;
-            this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
             // 
             // Admin
             // 
