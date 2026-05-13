@@ -45,6 +45,7 @@ INSERT INTO Roles (NombreRol) VALUES ('Admin'), ('Tecnico'), ('Super');
 -- Insertamos un admin (Password: 123)
 INSERT INTO Usuarios (Username, Password, Estado, IdRol) VALUES ('admin', '123', 1, 1);
 INSERT INTO Usuarios (Username, Password, Estado, IdRol) VALUES ('tecnico', '123', 1, 2);
+INSERT INTO Usuarios (Username, Password, Estado, IdRol) VALUES ('super', '123', 1, 3);
 
 -- Insertamos algunos equipos de prueba
 INSERT INTO Equipos (NombreEquipo, Estado) VALUES ('Motor Eléctrico Principal', 'Activo');
