@@ -27,7 +27,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.btncancelar = new System.Windows.Forms.Button();
-            this.btnguardar = new System.Windows.Forms.Button();
+            this.btnGuardar = new System.Windows.Forms.Button();
             this.lblEstado = new System.Windows.Forms.Label();
             this.cmbEstado = new System.Windows.Forms.ComboBox();
             this.btnCambiarEstado = new System.Windows.Forms.Button();
@@ -199,18 +199,18 @@
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
-            // btnguardar
+            // btnGuardar
             // 
-            this.btnguardar.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnguardar.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnguardar.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnguardar.Location = new System.Drawing.Point(540, 76);
-            this.btnguardar.Name = "btnguardar";
-            this.btnguardar.Size = new System.Drawing.Size(150, 35);
-            this.btnguardar.TabIndex = 13;
-            this.btnguardar.Text = "Guardar";
-            this.btnguardar.UseVisualStyleBackColor = false;
-            this.btnguardar.Click += new System.EventHandler(this.btnguardar_Click);
+            this.btnGuardar.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.btnGuardar.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardar.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnGuardar.Location = new System.Drawing.Point(540, 76);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(150, 35);
+            this.btnGuardar.TabIndex = 13;
+            this.btnGuardar.Text = "Guardar";
+            this.btnGuardar.UseVisualStyleBackColor = false;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btncancelar
             // 
@@ -343,7 +343,7 @@
             this.Controls.Add(this.dgvOrdenes);
             this.Controls.Add(this.pnlBusqueda);
             this.Controls.Add(this.btncancelar);
-            this.Controls.Add(this.btnguardar);
+            this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.pnlFormulario);
             this.Controls.Add(this.label1);
@@ -374,7 +374,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.Button btncancelar;
-        private System.Windows.Forms.Button btnguardar;
+        private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Label lblEstado;
         private System.Windows.Forms.ComboBox cmbEstado;
         private System.Windows.Forms.Button btnCambiarEstado;
