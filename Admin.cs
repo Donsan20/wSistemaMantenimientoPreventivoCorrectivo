@@ -20,7 +20,11 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
             AuxialiarInterfaz.ConfigurarFiltrosMantenimiento(cmbFiltrar);
             ConfigurarPermisos();
 
+            // Conectar todos los botones del menú lateral
             btnNuevaOrden.Click += AbrirNuevaOrden;
+            btnEquipos.Click += AbrirGestionEquipos;
+            btnUsuarios.Click += AbrirGestionUsuarios;
+            btnReportes.Click += AbrirReportes;
             lblRolSesion.Text = "Sesión activa: " + _rolUsuario.ToUpper();
 
             CargarTablaOrdenes();
@@ -37,6 +41,7 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
             if (_rolUsuario == "Tecnico")
             {
                 btnEquipos.Visible = false;
+                btnUsuarios.Visible = false;
                 btnReportes.Visible = false;
             }
             else if (_rolUsuario == "Supervisor" || _rolUsuario == "Super")
@@ -89,6 +94,25 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
             frm.ShowDialog();
             CargarTablaOrdenes();
             CargarAlertas();
+        }
+
+        private void AbrirGestionEquipos(object sender, EventArgs e)
+        {
+            GestionEquipos frm = new GestionEquipos();
+            frm.ShowDialog();
+            CargarTablaOrdenes();
+        }
+
+        private void AbrirGestionUsuarios(object sender, EventArgs e)
+        {
+            GestionUsuarios frm = new GestionUsuarios();
+            frm.ShowDialog();
+        }
+
+        private void AbrirReportes(object sender, EventArgs e)
+        {
+            Reportes frm = new Reportes();
+            frm.ShowDialog();
         }
 
         // Filtro para estado de las OT

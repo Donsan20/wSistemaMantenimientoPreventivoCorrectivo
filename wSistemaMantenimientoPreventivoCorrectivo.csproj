@@ -179,14 +179,34 @@
     <Compile Include="CapaDatos\CD_Equipos.cs" />
     <Compile Include="CapaDatos\CD_Ordenes.cs" />
     <Compile Include="CapaDatos\CD_Usuarios.cs" />
+    <Compile Include="CapaDatos\CD_Reportes.cs" />
     <Compile Include="CapaNegocio\CN_Equipos.cs" />
     <Compile Include="CapaNegocio\CN_Ordenes.cs" />
+    <Compile Include="CapaNegocio\CN_Reportes.cs" />
     <Compile Include="CapaNegocio\CN_Usuarios.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reportes.Designer.cs">
+      <DependentUpon>Reportes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GestionUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestionUsuarios.Designer.cs">
+      <DependentUpon>GestionUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GestionEquipos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestionEquipos.Designer.cs">
+      <DependentUpon>GestionEquipos.cs</DependentUpon>
     </Compile>
     <Compile Include="OrdenDeTrabajo.cs">
       <SubType>Form</SubType>
@@ -201,6 +221,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes.resx">
+      <DependentUpon>Reportes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GestionUsuarios.resx">
+      <DependentUpon>GestionUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GestionEquipos.resx">
+      <DependentUpon>GestionEquipos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OrdenDeTrabajo.resx">
       <DependentUpon>OrdenDeTrabajo.cs</DependentUpon>

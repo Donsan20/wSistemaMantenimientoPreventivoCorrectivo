@@ -40,6 +40,7 @@
             this.lblRolSesion = new System.Windows.Forms.Label();
             this.btnNuevaOrden = new System.Windows.Forms.Button();
             this.btnEquipos = new System.Windows.Forms.Button();
+            this.btnUsuarios = new System.Windows.Forms.Button();
             this.btnReportes = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.btnDashboard = new System.Windows.Forms.Button();
@@ -126,20 +127,21 @@
             this.panel2.Controls.Add(this.btnCerrarSesion);
             this.panel2.Controls.Add(this.lblRolSesion);
             this.panel2.Controls.Add(this.btnNuevaOrden);
+            this.panel2.Controls.Add(this.btnUsuarios);
             this.panel2.Controls.Add(this.btnEquipos);
             this.panel2.Controls.Add(this.btnReportes);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.btnDashboard);
             this.panel2.Location = new System.Drawing.Point(0, -2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(271, 413);
+            this.panel2.Size = new System.Drawing.Size(271, 442);
             this.panel2.TabIndex = 5;
             // 
             // btnCerrarSesion
             // 
             this.btnCerrarSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCerrarSesion.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnCerrarSesion.Location = new System.Drawing.Point(57, 242);
+            this.btnCerrarSesion.Location = new System.Drawing.Point(57, 271);
             this.btnCerrarSesion.Name = "btnCerrarSesion";
             this.btnCerrarSesion.Size = new System.Drawing.Size(165, 45);
             this.btnCerrarSesion.TabIndex = 11;
@@ -160,12 +162,23 @@
             // 
             this.btnNuevaOrden.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevaOrden.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnNuevaOrden.Location = new System.Drawing.Point(32, 196);
+            this.btnNuevaOrden.Location = new System.Drawing.Point(32, 225);
             this.btnNuevaOrden.Name = "btnNuevaOrden";
             this.btnNuevaOrden.Size = new System.Drawing.Size(211, 23);
             this.btnNuevaOrden.TabIndex = 9;
             this.btnNuevaOrden.Text = "NUEVA ORDEN";
             this.btnNuevaOrden.UseVisualStyleBackColor = true;
+            // 
+            // btnUsuarios
+            // 
+            this.btnUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUsuarios.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnUsuarios.Location = new System.Drawing.Point(32, 196);
+            this.btnUsuarios.Name = "btnUsuarios";
+            this.btnUsuarios.Size = new System.Drawing.Size(211, 23);
+            this.btnUsuarios.TabIndex = 10;
+            this.btnUsuarios.Text = "USUARIOS";
+            this.btnUsuarios.UseVisualStyleBackColor = true;
             // 
             // btnEquipos
             // 
@@ -214,7 +227,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(830, 410);
+            this.ClientSize = new System.Drawing.Size(830, 439);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.pnlAlertas);
             this.Controls.Add(this.cmbFiltrar);
@@ -244,6 +257,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnDashboard;
         private System.Windows.Forms.Button btnNuevaOrden;
+        private System.Windows.Forms.Button btnUsuarios;
         private System.Windows.Forms.Button btnEquipos;
         private System.Windows.Forms.Button btnReportes;
         private System.Windows.Forms.Label lblAlertas;
