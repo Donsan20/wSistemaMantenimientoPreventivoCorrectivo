@@ -85,6 +85,7 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
                     if (exito)
                     {
                         MessageBox.Show("Equipo actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        GestorEventos.NotificarEquipoModificado(_idEquipoSeleccionado);
                     }
                 }
                 else
@@ -94,6 +95,7 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
                     if (exito)
                     {
                         MessageBox.Show("Equipo creado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        GestorEventos.NotificarEquipoModificado();
                     }
                 }
 

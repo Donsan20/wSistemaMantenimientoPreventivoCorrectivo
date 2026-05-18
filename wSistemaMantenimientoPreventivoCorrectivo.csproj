@@ -167,6 +167,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Validador.cs" />
+    <Compile Include="ManejadorErrores.cs" />
+    <Compile Include="FabricaFormularios.cs" />
+    <Compile Include="ObservadorEventos.cs" />
     <Compile Include="Admin.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -131,6 +131,7 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
                     if (exito)
                     {
                         MessageBox.Show("Usuario actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        GestorEventos.NotificarUsuarioModificado(_idUsuarioSeleccionado);
                     }
                 }
                 else
@@ -139,6 +140,7 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
                     if (exito)
                     {
                         MessageBox.Show("Usuario creado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        GestorEventos.NotificarUsuarioModificado();
                     }
                 }
 

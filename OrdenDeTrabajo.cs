@@ -133,25 +133,27 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
 
                 bool exito = false;
 
-                if (_modoEdicion)
-                {
-                    // Modo edición
-                    string estadoOrden = cmbEstado.SelectedItem.ToString();
-                    exito = objOrden.ActualizarOrden(_idOrdenSeleccionada, idEquipo, idTecnico, tipoMantenimiento, fechaProgramada, descripcion, estadoOrden);
-                    if (exito)
+                    if (_modoEdicion)
                     {
-                        MessageBox.Show("Orden actualizada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // Modo edición
+                        string estadoOrden = cmbEstado.SelectedItem.ToString();
+                        exito = objOrden.ActualizarOrden(_idOrdenSeleccionada, idEquipo, idTecnico, tipoMantenimiento, fechaProgramada, descripcion, estadoOrden);
+                        if (exito)
+                        {
+                            MessageBox.Show("Orden actualizada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            GestorEventos.NotificarOrdenActualizada(_idOrdenSeleccionada);
+                        }
                     }
-                }
-                else
-                {
-                    // Modo nuevo
-                    exito = objOrden.InsertarOrden(idEquipo, idTecnico, tipoMantenimiento, fechaProgramada, descripcion);
-                    if (exito)
+                    else
                     {
-                        MessageBox.Show("Orden generada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // Modo nuevo
+                        exito = objOrden.InsertarOrden(idEquipo, idTecnico, tipoMantenimiento, fechaProgramada, descripcion);
+                        if (exito)
+                        {
+                            MessageBox.Show("Orden generada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            GestorEventos.NotificarNuevaOrden();
+                        }
                     }
-                }
 
                 CargarOrdenes();
                 LimpiarCampos();
@@ -178,6 +180,7 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
                 if (exito)
                 {
                     MessageBox.Show($"Estado de la orden cambiado a: {nuevoEstado}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    GestorEventos.NotificarOrdenActualizada(_idOrdenSeleccionada);
                     CargarOrdenes();
                 }
             }
@@ -210,6 +213,7 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
                     if (exito)
                     {
                         MessageBox.Show("Orden eliminada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        GestorEventos.NotificarOrdenEliminada(_idOrdenSeleccionada);
                         CargarOrdenes();
                         LimpiarCampos();
                     }

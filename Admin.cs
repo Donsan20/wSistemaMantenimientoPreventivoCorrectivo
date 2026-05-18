@@ -6,7 +6,7 @@ using wSistemaMantenimientoPreventivoCorrectivo.CapaNegocio;
 
 namespace wSistemaMantenimientoPreventivoCorrectivo
 {
-    public partial class Admin : Form
+    public partial class Admin : Form, ISuscriptor
     {
         private string _rolUsuario;
         private CN_Ordenes objOrden = new CN_Ordenes();
@@ -15,6 +15,9 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
         {
             InitializeComponent();
             _rolUsuario = rolUsuario;
+
+            // Suscribirse al patrón Observer para refrescar automáticamente
+            GestorEventos.Suscribirse(this);
 
             // Llamamos aux para actualizar el filtro 
             AuxialiarInterfaz.ConfigurarFiltrosMantenimiento(cmbFiltrar);
@@ -152,9 +155,35 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
             // Si el usuario hace clic en "Sí"
             if (confirmacion == DialogResult.Yes)
             {
-                // Esto cierra el Dashboard. Como ya configuré tu Form1.cs, 
-                // al cerrarse esta ventana, el Login volverá a aparecer automáticamente.
+                // Desuscribirse del Observer antes de cerrar
+                GestorEventos.Desuscribirse(this);
                 this.Close();
+            }
+        }
+
+        // ==================== Patrón Observer ====================
+
+        /// <summary>
+        /// Implementación de ISuscriptor: se ejecuta cuando otro formulario notifica un cambio.
+        /// </summary>
+        public void Actualizar(string tipoEvento, object datos = null)
+        {
+            // Refrescar la tabla de órdenes cuando hay cambios relevantes
+            if (tipoEvento == "OrdenCreada" || tipoEvento == "OrdenActualizada" || tipoEvento == "OrdenEliminada")
+            {
+                // Usar Invoke para asegurar que la actualización sea en el hilo de la UI
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action(() => {
+                        CargarTablaOrdenes();
+                        CargarAlertas();
+                    }));
+                }
+                else
+                {
+                    CargarTablaOrdenes();
+                    CargarAlertas();
+                }
             }
         }
     }
