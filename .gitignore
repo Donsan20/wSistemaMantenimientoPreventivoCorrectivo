@@ -262,8 +262,9 @@ ServiceFabricBackup/
 *.rptproj.bak
 
 # SQL Server files
-#*.mdf
-#*.ldf
+# Permitimos archivos .mdf y .ldf para que el profesor pueda ejecutar el proyecto sin configurar LocalDB
+# *.mdf  -> permitido
+# *.ldf  -> permitido
 *.ndf
 
 # Business Intelligence projects
