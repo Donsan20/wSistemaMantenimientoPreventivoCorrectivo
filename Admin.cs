@@ -135,7 +135,7 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
                 {
                     tablaEnMemoria.DefaultView.RowFilter = $"Tipo = '{seleccion}'";
                 }
-                else if (seleccion == "Pendiente" || seleccion == "Completada")
+                else if (seleccion == "Pendiente" || seleccion == "En Proceso" || seleccion == "Completada" || seleccion == "Cancelada")
                 {
                     tablaEnMemoria.DefaultView.RowFilter = $"[Estado actual] = '{seleccion}'";
                 }

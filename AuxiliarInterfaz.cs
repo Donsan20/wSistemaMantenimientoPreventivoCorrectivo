@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +13,7 @@ namespace wSistemaMantenimientoPreventivoCorrectivo
         public static void ConfigurarFiltrosMantenimiento(ComboBox combo)
         {
             combo.Items.Clear();
-            combo.Items.AddRange(new string[] { "Todos", "Preventivo", "Correctivo", "Pendiente", "Completada" });
+            combo.Items.AddRange(new string[] { "Todos", "Preventivo", "Correctivo", "Pendiente", "En Proceso", "Completada", "Cancelada" });
             combo.SelectedIndex = 0;
         }
     }
