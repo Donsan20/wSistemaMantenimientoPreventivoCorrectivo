@@ -36,66 +36,11 @@ El sistema implementa una **Arquitectura en 3 Capas (N-Tier Architecture)**, sep
 *   **Capa de Datos (DAL):** Única capa con acceso a la librería ADO.NET. Implementa el **Patrón de Diseño GoF Singleton** en la clase de conexión para garantizar una única instancia activa, optimizando el consumo de recursos.
 
 ## 5. Diagrama de Clases Preliminar
-```mermaid
-classDiagram
-    class Formularios_UI {
-        +Form1_Login()
-        +Admin_Dashboard()
-        +OrdenDeTrabajo()
-    }
-    class CapaNegocio_BLL {
-        +CN_Usuarios
-        +CN_Ordenes
-        +CN_Equipos
-    }
-    class CapaDatos_DAL {
-        +CD_Usuarios
-        +CD_Ordenes
-        +CD_Equipos
-    }
-    class Singleton_Conexion {
-        +CD_Conexion.Instancia
-    }
-    
-    Formularios_UI --> CapaNegocio_BLL : Invoca
-    CapaNegocio_BLL --> CapaDatos_DAL : Valida y Delega
-    CapaDatos_DAL --> Singleton_Conexion : Solicita Conexión
-```
+> 📄 **[Ver Diagrama de Clases (Formato PDF)](./pdf/diagrama_clases.pdf)**
 
 ## 6. Modelo Entidad-Relación y BD Normalizada
 El diseño relacional se encuentra normalizado hasta la Tercera Forma Normal (3FN), eliminando redundancias y garantizando la integridad referencial.
-```mermaid
-erDiagram
-    Roles ||--o{ Usuarios : tiene
-    Usuarios ||--o{ OrdenesTrabajo : asignado_a
-    Equipos ||--o{ OrdenesTrabajo : sufre
-
-    Roles {
-        int IdRol PK
-        varchar NombreRol
-    }
-    Usuarios {
-        int IdUsuario PK
-        varchar Username
-        varchar Password
-        bit Estado
-        int IdRol FK
-    }
-    Equipos {
-        int IdEquipo PK
-        varchar NombreEquipo
-        varchar Estado
-    }
-    OrdenesTrabajo {
-        int IdOrden PK
-        int IdEquipo FK
-        int IdTecnico FK
-        varchar TipoMantenimiento
-        datetime FechaProgramada
-        varchar DescripcionFalla
-        varchar EstadoOrden
-    }
-```
+> 📄 **[Ver Modelo Entidad-Relación (Formato PDF)](./pdf/diagrama_er.pdf)**
 
 ## 7. Script Inicial de BD
 El script fundacional entregado (`MantenimientoDB.sql`) incluye la creación de la base de datos, la estructura de las tablas, restricciones de llaves foráneas y la inserción de datos semilla para pruebas funcionales. Adicionalmente, incluye el esquema de Procedimientos Almacenados que utiliza el backend.
